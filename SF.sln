@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Server", "SF.Server\SF.Server.csproj", "{D6FB8728-C2B8-4B05-88B3-579A67B43E83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Server", "SF.Server\SF.Server.csproj", "{D6FB8728-C2B8-4B05-88B3-579A67B43E83}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "sf.client", "sf.client\sf.client.esproj", "{952E626B-3F90-4EF8-A97F-DEEAE61A3239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.Logger", "SF.Logger\SF.Logger.csproj", "{2AD8DE88-8102-4FF7-B2D6-A238431C4E8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{952E626B-3F90-4EF8-A97F-DEEAE61A3239}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{952E626B-3F90-4EF8-A97F-DEEAE61A3239}.Release|Any CPU.Build.0 = Release|Any CPU
 		{952E626B-3F90-4EF8-A97F-DEEAE61A3239}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{2AD8DE88-8102-4FF7-B2D6-A238431C4E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AD8DE88-8102-4FF7-B2D6-A238431C4E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AD8DE88-8102-4FF7-B2D6-A238431C4E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AD8DE88-8102-4FF7-B2D6-A238431C4E8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

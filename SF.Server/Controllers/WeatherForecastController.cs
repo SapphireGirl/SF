@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SF.Logger;
 
 namespace SF.Server.Controllers
 {
@@ -6,6 +7,13 @@ namespace SF.Server.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly ISFLogger _sflogger = new SFLogger();
+
+        public WeatherForecastController(ISFLogger sflogger)
+        {
+            _sflogger = sflogger;
+        }
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -13,14 +21,12 @@ namespace SF.Server.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
 
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            _sflogger.LogInformation("GetWeatherForecast called");
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
