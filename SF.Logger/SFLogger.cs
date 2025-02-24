@@ -16,16 +16,12 @@ namespace SF.Logger
         {
             // Implementation for logging information level messages
             Log.Information($"INFO: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
-
-            //Log.CloseAndFlush();
         }
 
         public void LogWarning(string message)
         {
             // Implementation for logging warning level messages
             Log.Warning($"WARNING: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
-
-           // Log.CloseAndFlush();
 
         }
 
@@ -38,8 +34,6 @@ namespace SF.Logger
                 Log.Error($"Exception: {exception.Message}");
                 Log.Error($"StackTrace: {exception.StackTrace}");
 
-               // Log.CloseAndFlush();
-
             }
         }
 
@@ -47,8 +41,6 @@ namespace SF.Logger
         {
             // Implementation for logging debug level messages
             Log.Debug($"DEBUG: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
-
-            //Log.CloseAndFlush();
 
         }
 
