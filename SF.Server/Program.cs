@@ -1,3 +1,4 @@
+using FizzBuzz.Core.Extensions;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
@@ -8,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.RegisterLogging();
 
-builder.Services.AddTransient<ISFLogger, SFLogger>();
+
 
 IHostEnvironment env = builder.Environment;
 
