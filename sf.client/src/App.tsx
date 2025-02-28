@@ -2,15 +2,26 @@ import { useEffect, useState } from 'react';
 import { logger } from './logger';
 import './App.css';
 
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
+//interface Forecast {
+//    date: string;
+//    temperatureC: number;
+//    temperatureF: number;
+//    summary: string;
+//}
+
+interface Home {
+    address: string;
+    city: string;
+    state: string;
+    zipcode: number,
+    comments: string;
+    imageUrl: string;
+    price: number;
 }
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
+    //const [forecasts, setForecasts] = useState<Forecast[]>();
+    const [homes, setHomes] = useState<Home[]>();
 
     const messageTemplate:string = 'Hello from the client!';
 
@@ -25,10 +36,10 @@ function App() {
             }
         });
 
-         populateWeatherData();
+         populateHomeData();
       }, []);
 
-    const contents = forecasts === undefined
+    const contents = homes === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
         : <table className="table table-striped" aria-labelledby="tabelLabel">
             <thead>
@@ -40,12 +51,12 @@ function App() {
                 </tr>
             </thead>
             <tbody>
-                {forecasts.map(forecast =>
-                    <tr key={forecast.date}>
-                        <td>{forecast.date}</td>
-                        <td>{forecast.temperatureC}</td>
-                        <td>{forecast.temperatureF}</td>
-                        <td>{forecast.summary}</td>
+                {homes.map(home =>
+                    <tr key={home.address}>
+                        <td>{home.city}</td>
+                        <td>{home.state}</td>
+                        <td>{home.price}</td>
+                        <td>{home.imageUrl}</td>
                     </tr>
                 )}
             </tbody>
@@ -53,16 +64,16 @@ function App() {
 
     return (
         <div>
-            <h1 id="tabelLabel">Weather forecast</h1>
+            <h1 id="tabelLabel">Santa Fe Homes</h1>
             <p>This component demonstrates fetching data from the server.</p>
             {contents}
         </div>
     );
 
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
+    async function populateHomeData() {
+        const response = await fetch('/api/home/Get');
         const data = await response.json();
-        setForecasts(data);
+        setHomes(data);
     }
 }
 

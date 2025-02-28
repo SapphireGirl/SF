@@ -3,7 +3,7 @@ using SF.Data.Context;
 using SF.Data.Repositories;
 using SF.Model;
 
-namespace SF.Server.Extensions;
+namespace SF.API.Extensions;
 
 public static class ServiceExtensions
 {

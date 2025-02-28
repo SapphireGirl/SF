@@ -1,8 +1,8 @@
-using FizzBuzz.Core.Extensions;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
 using SF.Logger;
+using SF.Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

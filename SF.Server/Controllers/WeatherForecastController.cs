@@ -5,15 +5,9 @@ namespace SF.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController(ISFLogger sflogger) : ControllerBase
     {
-        private readonly ISFLogger _sflogger = new SFLogger();
-
-        public WeatherForecastController(ISFLogger sflogger)
-        {
-            _sflogger = sflogger;
-        }
-
+        private readonly ISFLogger _sflogger = sflogger;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
