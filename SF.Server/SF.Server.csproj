@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\sf.client\sf.client.esproj">
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
+    <ProjectReference Include="..\SF.API\SF.API.csproj" />
+    <ProjectReference Include="..\SF.Data\SF.Data.csproj" />
     <ProjectReference Include="..\SF.Logger\SF.Logger.csproj" />
+    <ProjectReference Include="..\SF.Models\SF.Models.csproj" />
   </ItemGroup>
 
 </Project>
