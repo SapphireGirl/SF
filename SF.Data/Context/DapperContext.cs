@@ -12,7 +12,13 @@ namespace SF.Data.Context
         private string? _connectionString { get; set;}
         private SqlConnection _connection { get; set; }
 
-        public override string ConnectionString { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public override string ConnectionString { 
+            get
+            {
+                return _connectionString;
+            }  
+            set => _connectionString = value;
+        }
 
         public DapperContext(IConfiguration configuration)
         {
