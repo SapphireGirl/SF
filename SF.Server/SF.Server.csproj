@@ -29,4 +29,8 @@
     <ProjectReference Include="..\SF.Models\SF.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

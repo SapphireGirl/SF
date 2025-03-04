@@ -1,0 +1,12 @@
+{
+  "development": {
+    "apiUrl": "http://localhost:5146"
+  },
+  "Seq": {
+    "ServerUrl": "http://localhost:5341",
+    "MinimumLevel": "Trace",
+    "LevelOverride": {
+      "Microsoft": "Warning"
+    }
+  }
+}

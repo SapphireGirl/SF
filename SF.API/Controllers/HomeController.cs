@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SF.Model;
-using SF.Data;
-using SF.Logger;
 using SF.Data.Repositories;
+using Serilog;
+using Seq.Extensions.Logging;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,31 +15,36 @@ namespace SF.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private readonly ISFLogger _logger;
+        //private readonly Serilog.ILogger _logger;
+        private readonly Serilog.ILogger _log = Log.ForContext<HomeRepository>();
         private readonly IHomeRepository _homeRepository;
 
-        public HomeController(ISFLogger logger, IHomeRepository homeRepository)
+        public HomeController(IHomeRepository homeRepository)
         {
-            _logger = logger;
+           // _logger = logger;
             _homeRepository = homeRepository;
+            _log = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
         }
 
-        // GET: api/<HomeController>
-
         [HttpGet]
-        [Route("GetAll")]
-        public async Task<IEnumerable<Home>> GetAll()
+        [Route("GetAllAsync")]
+        public async Task<IEnumerable<Home>> GetAllAsync()
         {
             try
             {
+                _log.Information("GetAll method called in HomeController");
                 var homes = await _homeRepository.GetAllAsync();
+                _log.Information("After GetAllAsync");
 
-                return homes;
+                return homes.ToList<Home>();
 
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error in Get method", ex);
+                _log.Error("Error in Get method", ex);
                 return Enumerable.Empty<Home>();
             }
 

@@ -1,5 +1,5 @@
 {
-  "name": "sf.client",
+  "name": "SF.Client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,11 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "datatables.net-buttons": "^3.2.2",
+    "datatables.net-dt": "^2.2.2",
+    "datatables.net-react": "^1.0.0",
+    "datatables.net-select": "^3.0.0",
+    "jszip": "^3.10.1",
+    "path": "^0.12.7",
+    "pdfmake": "^0.2.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/node": "^22.13.5",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",

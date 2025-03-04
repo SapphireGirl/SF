@@ -2,8 +2,10 @@
 
 namespace SF.Logger
 {
-    public class SFLogger : ISFLogger
+    public class SFLogger : ISFLogger, IDisposable 
     {
+        private readonly ILogger _logger;
+
         public SFLogger()
         {
             // Initialize Serilog configuration
@@ -12,17 +14,24 @@ namespace SF.Logger
                 .WriteTo.Seq("http://localhost:5341")
                 .CreateLogger();
         }
+
         public void LogInformation(string message)
         {
             // Implementation for logging information level messages
             Log.Information($"INFO: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
+            Log.CloseAndFlush();
+        }
+
+        public void Dispose()
+        {
+            Log.CloseAndFlush();
         }
 
         public void LogWarning(string message)
         {
             // Implementation for logging warning level messages
             Log.Warning($"WARNING: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
-
+            Log.CloseAndFlush();
         }
 
         public void LogError(string message, Exception? exception = null)
@@ -35,6 +44,8 @@ namespace SF.Logger
                 Log.Error($"StackTrace: {exception.StackTrace}");
 
             }
+            Log.CloseAndFlush();
+
         }
 
         public void LogDebug(string message)
@@ -43,6 +54,5 @@ namespace SF.Logger
             Log.Debug($"DEBUG: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} - {message}");
 
         }
-
     }
 }

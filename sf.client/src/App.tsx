@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
-import { logger } from './logger';
+import { Log } from './logger';
+import configData from "./logConfig.json";
+
+//import DataTable from 'datatables.net-react';
+//import DT from 'datatables.net-dt';
+//import 'datatables.net-select-dt';
+//import 'datatables.net-buttons-dt';
+//import 'datatables.net-buttons/js/buttons.html5';
+//import jszip from 'jszip';
+//import pdfmake from 'pdfmake';
+
 import './App.css';
 
-//interface Forecast {
-//    date: string;
-//    temperatureC: number;
-//    temperatureF: number;
-//    summary: string;
-//}
 
+//import { json } from './';
 interface Home {
+    Id: number;
     address: string;
     city: string;
     state: string;
@@ -20,39 +26,44 @@ interface Home {
 }
 
 function App() {
-    //const [forecasts, setForecasts] = useState<Forecast[]>();
-    const [homes, setHomes] = useState<Home[]>();
 
-    const messageTemplate:string = 'Hello from the client!';
+    const [homes, setHomes] = useState<Home[]>([]);
 
-    useEffect(() => {
-
-        logger.emit({
-            timestamp: new Date(),
-            level: 'Information',
-            messageTemplate,
-            properties: {
-                source: navigator.userAgent
+    useEffect( () => {
+        const getHomes = async () => {
+            try {
+                const homesData = await populateHomeData();
+                setHomes(homesData);
+                const logData = JSON.stringify(homesData);
+                const log = new Log(logData);
+                log.info();
             }
-        });
+            catch (error) {
+                const logData = JSON.stringify(error);
+                const log = new Log(`Error ${error}: ${logData}`);
+                log.error();
+            }
 
-         populateHomeData();
-      }, []);
+        };
+        getHomes();
+    }, []);
 
     const contents = homes === undefined
         ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
         : <table className="table table-striped" aria-labelledby="tabelLabel">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Price</th>
+                    <th>Url</th>
                 </tr>
             </thead>
             <tbody>
                 {homes.map(home =>
-                    <tr key={home.address}>
+                    <tr key={home.Id}>
+                        <td>{home.address}</td>
                         <td>{home.city}</td>
                         <td>{home.state}</td>
                         <td>{home.price}</td>
@@ -70,10 +81,28 @@ function App() {
         </div>
     );
 
-    async function populateHomeData() {
-        const response = await fetch('/api/home/Get');
-        const data = await response.json();
-        setHomes(data);
+    async function populateHomeData(): Promise<Home[]>{
+
+        const baseUrl = configData.development.apiUrl;
+
+        let log = new Log(`This is the baseUrl ${baseUrl}`);
+        log.info();
+
+        const response = await fetch(`${baseUrl}/api/home/GetAllAsync`);
+ 
+        if (!response.ok) {
+            const logData = JSON.stringify(response);
+            const log = new Log(`This is the error ${logData}`);
+            log.error();
+            throw new Error('Network response was not ok');
+        }
+
+        const logData = JSON.stringify(response);
+
+        log = new Log(logData);
+        log.info();
+        return response.json();
+
     }
 }
 
