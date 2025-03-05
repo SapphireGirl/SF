@@ -3,8 +3,6 @@ using SF.Model;
 using SF.Data.Context;
 using Microsoft.Data.SqlClient;
 using Serilog;
-using Seq.Extensions.Logging;
-//using Microsoft.Extensions.Logging;
 
 namespace SF.Data.Repositories
 {
@@ -14,7 +12,6 @@ namespace SF.Data.Repositories
         private readonly string _tableName = "Homes";
         private readonly List<string> _columnNames;
         private readonly string _connectionString;
-        //private readonly ILogger _logger;
         private readonly ILogger _log = Log.ForContext<HomeRepository>();
 
         public HomeRepository(DapperContext context)
@@ -22,11 +19,6 @@ namespace SF.Data.Repositories
             _context = context.SetConnectionString().CreateConnection();
             _columnNames = typeof(Home).GetProperties().Where(p => p.Name != "Id").Select(p => p.Name).ToList();
             _connectionString = _context.ConnectionString;
-            //_logger = new LoggerConfiguration()
-            //    .MinimumLevel.Debug()
-            //    .WriteTo.Seq("http://localhost:5341")
-            //    .CreateLogger();
-            //_logger = logger;
         }
 
         public async Task<IEnumerable<Home>> GetAllAsync()

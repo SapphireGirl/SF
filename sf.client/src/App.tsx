@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Log } from './logger';
 import configData from "./logConfig.json";
+import { DataGrid } from '@mui/x-data-grid';
+
+import jszip from 'jszip';
+//import pdfmake from 'pdfmake';
 
 //import DataTable from 'datatables.net-react';
 //import DT from 'datatables.net-dt';
 //import 'datatables.net-select-dt';
-//import 'datatables.net-buttons-dt';
 //import 'datatables.net-buttons/js/buttons.html5';
-//import jszip from 'jszip';
-//import pdfmake from 'pdfmake';
+
 
 import './App.css';
 
 
 //import { json } from './';
 interface Home {
-    Id: number;
+   
+    ID: number;
     address: string;
     city: string;
     state: string;
     zipcode: number,
     comments: string;
-    imageUrl: string;
+    Url: string;
     price: number;
 }
 
@@ -29,7 +32,9 @@ function App() {
 
     const [homes, setHomes] = useState<Home[]>([]);
 
-    useEffect( () => {
+    useEffect(() => {
+        console.log("Calling use effect");
+
         const getHomes = async () => {
             try {
                 const homesData = await populateHomeData();
@@ -62,12 +67,12 @@ function App() {
             </thead>
             <tbody>
                 {homes.map(home =>
-                    <tr key={home.Id}>
+                    <tr key={home.ID}>
                         <td>{home.address}</td>
                         <td>{home.city}</td>
                         <td>{home.state}</td>
                         <td>{home.price}</td>
-                        <td>{home.imageUrl}</td>
+                        <td>{home.Url}</td>
                     </tr>
                 )}
             </tbody>
