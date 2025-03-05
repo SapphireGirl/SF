@@ -18,13 +18,13 @@ import './App.css';
 //import { json } from './';
 interface Home {
    
-    ID: number;
+    id: number;
     address: string;
     city: string;
     state: string;
     zipcode: number,
     comments: string;
-    Url: string;
+    url: string;
     price: number;
 }
 
@@ -33,15 +33,18 @@ function App() {
     const [homes, setHomes] = useState<Home[]>([]);
 
     useEffect(() => {
-        console.log("Calling use effect");
 
         const getHomes = async () => {
             try {
                 const homesData = await populateHomeData();
-                setHomes(homesData);
-                const logData = JSON.stringify(homesData);
-                const log = new Log(logData);
-                log.info();
+
+                if (homesData.length != 0) {
+                    setHomes(homesData);
+                    const logData = JSON.stringify(homesData);
+                    const log = new Log('getHomes \n' +logData);
+                    log.info();
+                }
+
             }
             catch (error) {
                 const logData = JSON.stringify(error);
@@ -58,6 +61,7 @@ function App() {
         : <table className="table table-striped" aria-labelledby="tabelLabel">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Address</th>
                     <th>City</th>
                     <th>State</th>
@@ -67,12 +71,13 @@ function App() {
             </thead>
             <tbody>
                 {homes.map(home =>
-                    <tr key={home.ID}>
+                    <tr key={home.id}>
+                        <td key={home.id}>{home.id}</td>
                         <td>{home.address}</td>
                         <td>{home.city}</td>
                         <td>{home.state}</td>
                         <td>{home.price}</td>
-                        <td>{home.Url}</td>
+                        <td>{home.url}</td>
                     </tr>
                 )}
             </tbody>
@@ -90,9 +95,6 @@ function App() {
 
         const baseUrl = configData.development.apiUrl;
 
-        let log = new Log(`This is the baseUrl ${baseUrl}`);
-        log.info();
-
         const response = await fetch(`${baseUrl}/api/home/GetAllAsync`);
  
         if (!response.ok) {
@@ -101,13 +103,12 @@ function App() {
             log.error();
             throw new Error('Network response was not ok');
         }
-
-        const logData = JSON.stringify(response);
-
-        log = new Log(logData);
-        log.info();
-        return response.json();
-
+        else {
+            const logData = JSON.stringify(response);
+            const log = new Log('populateHomeData ' + logData);
+            log.info();
+            return response.json();
+        }
     }
 }
 
