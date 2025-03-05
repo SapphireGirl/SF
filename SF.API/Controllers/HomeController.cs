@@ -14,18 +14,19 @@ namespace SF.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        //private readonly Serilog.ILogger _logger;
-        private readonly Serilog.ILogger _log = Log.ForContext<HomeRepository>();
+        private readonly Serilog.ILogger _logger;
+        //private readonly Serilog.ILogger _log = Log.ForContext<HomeRepository>();
         private readonly IHomeRepository _homeRepository;
 
-        public HomeController(IHomeRepository homeRepository)
+        public HomeController(IHomeRepository homeRepository, Serilog.ILogger logger)
         {
-           // _logger = logger;
+            // _logger = logger;
             _homeRepository = homeRepository;
-            _log = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.Seq("http://localhost:5341")
-                .CreateLogger();
+            //_log = new LoggerConfiguration()
+            //    .MinimumLevel.Debug()
+            //    .WriteTo.Seq("http://localhost:5341")
+            //    .CreateLogger();
+            _logger = logger.ForContext<HomeController>();
         }
 
         [HttpGet]
@@ -34,16 +35,16 @@ namespace SF.API.Controllers
         {
             try
             {
-                _log.Information("GetAll method called in HomeController");
+                _logger.Information("GetAllAsync");
                 var homes = await _homeRepository.GetAllAsync();
-                _log.Information("After GetAllAsync");
+                _logger.Information("After GetAllAsync");
 
                 return homes.ToList<Home>();
 
             }
             catch (Exception ex)
             {
-                _log.Error("Error in Get method", ex);
+                _logger.Error("Error in Get method", ex);
                 return Enumerable.Empty<Home>();
             }
 
