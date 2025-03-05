@@ -47,7 +47,7 @@ using Serilog.Core;
 
 
     var levelSwitch = new LoggingLevelSwitch();
-
+    
     var log = new LoggerConfiguration()
         .MinimumLevel.ControlledBy(levelSwitch)
         .WriteTo.Seq("http://localhost:5341")

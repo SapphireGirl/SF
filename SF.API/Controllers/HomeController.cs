@@ -2,14 +2,13 @@
 using SF.Model;
 using SF.Data.Repositories;
 using Serilog;
-using Seq.Extensions.Logging;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SF.API.Controllers
 {
-    
+
 
     [Route("api/[controller]")]
     [ApiController]

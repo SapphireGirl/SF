@@ -10,7 +10,7 @@ namespace SF.Model
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Comments { get; set; }
-        public string? ImageUrl { get; set; }
+        public string? Url { get; set; }
 
     }
 }
