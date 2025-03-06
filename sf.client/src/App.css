@@ -3,6 +3,7 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
+    color: rgb(60, 26, 100);
 }
 
 tr:nth-child(even) {
@@ -16,4 +17,10 @@ tr:nth-child(odd) {
 th, td {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.expanded-row {
+    width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
 }

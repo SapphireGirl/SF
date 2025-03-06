@@ -12,25 +12,27 @@ namespace SF.Data.Repositories
         private readonly string _tableName = "Homes";
         private readonly List<string> _columnNames;
         private readonly string _connectionString;
-        private readonly ILogger _log = Log.ForContext<HomeRepository>();
+        //private readonly ILogger _log = Log.ForContext<HomeRepository>();
+        private readonly Serilog.ILogger _logger;
 
-        public HomeRepository(DapperContext context)
+        public HomeRepository(DapperContext context, Serilog.ILogger logger)
         {
             _context = context.SetConnectionString().CreateConnection();
             _columnNames = typeof(Home).GetProperties().Where(p => p.Name != "Id").Select(p => p.Name).ToList();
             _connectionString = _context.ConnectionString;
+            _logger = logger.ForContext<HomeRepository>();
         }
 
         public async Task<IEnumerable<Home>> GetAllAsync()
         {
             // Construct the SQL query to select all records from the table.
             var query = $"SELECT * FROM {_tableName}";
-            _log.Information("GetAllAsync");
+            _logger.Information("GetAllAsync");
 
             using var connection = new SqlConnection(_connectionString);
 
             var result = await connection.QueryAsync<Home>(query);
-            _log.Information($"GetAllAsync {result}");
+            _logger.Information($"GetAllAsync {@result.ToList<Home>()}");
 
             return result;
         }

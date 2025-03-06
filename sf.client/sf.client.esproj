@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Scripts\" />
+    <Folder Include="src\helpers\" />
   </ItemGroup>
 </Project>
