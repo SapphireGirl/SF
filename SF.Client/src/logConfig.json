@@ -1,6 +1,7 @@
 {
   "development": {
-    "apiUrl": "http://localhost:5146"
+    "apiUrl": "http://localhost:5146",
+    "appUrl": "http://localhost:5173"
   },
   "Seq": {
     "ServerUrl": "http://localhost:5341",

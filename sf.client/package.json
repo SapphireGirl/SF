@@ -1,11 +1,12 @@
 {
-  "name": "SF.Client",
+  "name": "sf-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test": "mocha --require ts-node/register --timeout 10000 --exit",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -16,6 +17,7 @@
     "@mui/styled-engine": "^6.4.6",
     "@mui/x-data-grid": "^7.27.2",
     "@mui/x-tree-view": "^7.26.0",
+    "bootstrap": "^5.3.3",
     "datatables.net-buttons": "^3.2.2",
     "datatables.net-dt": "^2.2.2",
     "datatables.net-react": "^1.0.0",
@@ -25,8 +27,11 @@
     "npm": "^11.1.0",
     "path": "^0.12.7",
     "pdfmake": "^0.2.18",
+    "prompts": "^2.4.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-bootstrap": "^2.10.9",
+    "react-dom": "^19.0.0",
+    "styled-components": "^6.1.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
@@ -37,7 +42,9 @@
     "eslint": "^9.19.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "generate-react-cli": "^8.4.9",
     "globals": "^15.14.0",
+    "mocha": "^11.1.0",
     "seq-logging": "^2.2.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.22.0",
