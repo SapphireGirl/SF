@@ -23,6 +23,7 @@ interface Home {
 
 	const HomeComponent: React.FC<Home> = () => {
       const[homes, setHomes] = useState<Home[] > ([]);
+        const [selectedHomeId, setSelectedHomeId] = useState<number | null>(null);
 
 		useEffect(() => {
 			const getHomes = async () => {
@@ -66,33 +67,58 @@ interface Home {
         }
     }
 
+    function handleCardClick(homeId: number) {
+        setSelectedHomeId(homeId === selectedHomeId ? null : homeId);
+        const logData = "Clicking on card with ID: " + homeId;
+        const log = new Log(logData);
+        log.info();
+    }
 
-        return (
-            <div>
-                <h1 className=" row text-center my-4 center">Santa Fe Homes</h1>
+    function handleCloseClick() {
+        setSelectedHomeId(null);
+    }
 
-                <div className="container center">
-                    <div className="row justify-content-center">
-                        {homes.map(home => (
-                            <div key={home.id} className="col-md-4">
+    return (
+        <div>
+            <h1 className="row text-center my-4 center">Santa Fe Homes</h1>
+            <div className="container center">
+                <div className="row justify-content-center">
+                    {homes.map(home => (
+                        <React.Fragment key={home.id}>
+                            <div className="col-md-4">
                                 <div className="card mb-4">
-                                    <img src={home.image} className="card-img-top" alt={home.address} />
-                                    <div className="card-body">
-                                        <h5 className="card-text"><strong>Address:</strong> {home.address}</h5>
-                                        <p className="card-text"><strong>City:</strong> {home.city}</p>
-                                        <p className="card-text"><strong>State:</strong> {home.state}</p>
-                                        <p className="card-text"><strong>Zipcode:</strong> {home.zipcode}</p>
-                                        <p className="card-text"><strong>Comments:</strong> {home.comments}</p>
-                                        <p className="card-text"><strong>Price:</strong> {home.price}</p>
-                                    </div>
+                                    <img src={home.image} className="card-img-top img-fluid w-100" alt={home.address} onClick={() => handleCardClick(home.id)} />
+                                    
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                            {selectedHomeId === home.id && (
+                                <div className="col-12">
+                                    <div className="card mb-4">
+                                        <div className="card-body d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p className="card-text text-start"><strong>Address:</strong> {home.address}</p>
+                                                <p className="card-text text-start"><strong>City:</strong> {home.city}</p>
+                                                <p className="card-text text-start"><strong>State:</strong> {home.state}</p>
+                                                <p className="card-text text-start"><strong>Zipcode:</strong> {home.zipcode}</p>
+                                                <p className="card-text text-start"><strong>Comments:</strong> {home.comments}</p>
+                                                <p className="card-text text-start"><strong>Price:</strong> {home.price}</p>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                className="btn-close position-absolute top-0 end-0"
+                                                aria-label="Close"
+                                                onClick={handleCloseClick}
+                                            ></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </React.Fragment>
+                    ))}
                 </div>
             </div>
-        );
-
+        </div>
+    );
 };
 
 export default HomeComponent;
