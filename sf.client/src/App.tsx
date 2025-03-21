@@ -4,7 +4,10 @@ import './App.css';
 function App() {
     return (
         <div>
-            <HomeComponent id={0} address={''} city={''} state={''} zipcode={0} comments={''} url={''} price={''} />
+            <HomeComponent
+                id={0} address={''} city={''}
+                state={''} zipcode={0} comments={''}
+                url={''} price={''} image={''} />
         </div>
     );
 }

@@ -22,11 +22,13 @@ interface Home {
 }
 
 	const HomeComponent: React.FC<Home> = () => {
-      const[homes, setHomes] = useState<Home[] > ([]);
+        const[homes, setHomes] = useState<Home[] > ([]);
         const [selectedHomeId, setSelectedHomeId] = useState<number | null>(null);
 
 		useEffect(() => {
-			const getHomes = async () => {
+            const getHomes = async () => {
+            const log = new Log();
+
             try {
                 const homesData = await populateHomeData();
                 if (homesData.length !== 0) {
@@ -35,17 +37,15 @@ interface Home {
                         ...home,
                         price: formatCurrency(parseInt(home.price)),
                         // assets directory will not work here
-                        image: `../../public/Images/${home.image}` // works
+                        image: `../../Images/${home.image}` // works
                     }));
                     setHomes(homesWithPrices);
                     const logData = JSON.stringify(homesWithPrices);
-                    const log = new Log('getHomes \n' + logData);
-                    log.info();
+                    log.info('getHomes \n' + logData);
                 }
             } catch (error) {
                 const logData = JSON.stringify(error);
-                const log = new Log(`Error ${error}: ${logData}`);
-                log.error();
+                log.error(`Error ${error}: ${logData}`);
             }
         };
         getHomes();
@@ -53,25 +53,25 @@ interface Home {
     async function populateHomeData(): Promise<Home[]> {
         const baseUrl = configData.development.apiUrl;
         const response = await fetch(`${baseUrl}/api/home/GetAllAsync`);
+        const log = new Log();
 
         if (!response.ok) {
             const logData = JSON.stringify(response);
-            const log = new Log(`This is the error ${logData}`);
-            log.error();
+            log.error(`This is the error ${logData}`);
             throw new Error('Network response was not ok');
         } else {
             const logData = JSON.stringify(response);
-            const log = new Log('populateHomeData ' + logData);
-            log.info();
+            log.info('populateHomeData ' + logData);
             return response.json();
         }
     }
 
     function handleCardClick(homeId: number) {
+        const log = new Log();
         setSelectedHomeId(homeId === selectedHomeId ? null : homeId);
         const logData = "Clicking on card with ID: " + homeId;
-        const log = new Log(logData);
-        log.info();
+        
+        log.info(logData);
     }
 
     function handleCloseClick() {

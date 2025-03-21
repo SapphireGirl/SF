@@ -4,11 +4,7 @@ import configData from "./logConfig.json";
 class Log{
 
     logger: Logger;
-    message: string;
-
-
-    constructor(mes: string) {
-        this.message = mes;
+    constructor() {
         this.logger = new Logger({
             serverUrl: configData.Seq.ServerUrl, 
             onError: (e) => {
@@ -16,34 +12,34 @@ class Log{
             }
         });
     }
-    info(){
+    info(mes: string){
         this.logger.emit({
             timestamp: new Date(),
             level: 'Information',
-            messageTemplate: this.message,
+            messageTemplate: mes,
             properties: { user: 'Justine' }
         });
         //this.logger.close();
     }
-    warning(){
+    warning(mes: string){
       this.logger.emit({
           timestamp: new Date(),
           level: 'warning',
-          messageTemplate: this.message,
+          messageTemplate: mes,
           properties: { user: 'Justine' }
       });
-      //this.logger.close();
-  }
-  error(){
-    this.logger.emit({
-        timestamp: new Date(),
-        level: 'error',
-        // TODO: Get user
-        messageTemplate: this.message,
-        properties: { user: 'Justine' }
-    });
-    //this.logger.close();
-}
+    }
+
+    error(mes: string){
+        this.logger.emit({
+            timestamp: new Date(),
+            level: 'error',
+            // TODO: Get user
+            messageTemplate: mes,
+            properties: { user: 'Justine' }
+        });
+    
+    }
 }
 
 export { Log };
