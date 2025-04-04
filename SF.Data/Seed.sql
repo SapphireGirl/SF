@@ -32,15 +32,17 @@ INSERT INTO [dbo].[Homes]
            ,[City]
            ,[State]
            ,[Url]
-           ,[Comments])
+           ,[Comments]
+		   ,[Image])
      VALUES
            ('406B Los Pinos Rd'
            ,320000
            ,87507
            ,'Santa Fe'
            ,'New Mexico'
-           ,'LosPinos_Url'
-           ,'Run Down')
+           ,'LosPinos'
+           ,'Run Down'
+		   ,'LosPinos.jpg')
 GO
 
 

@@ -44,7 +44,7 @@ namespace SF.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error("Error in Get method", ex);
+                _logger.Error("Error in GetAllAsync method", ex);
                 return Enumerable.Empty<Home>();
             }
 
@@ -52,21 +52,53 @@ namespace SF.API.Controllers
 
         // GET api/<HomeController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Home> GetById(int id)
         {
-            return "value";
+            try
+            {
+                _logger.Information($"GetById: {id}");
+                return await _homeRepository.GetByIdAsync(id);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error in GetById method", ex);
+                return new Home();
+            }
         }
 
         // POST api/<HomeController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<Home> Insert([FromBody] Home home)
         {
+            try
+            {
+                _logger.Information($"GetById: {home}");
+                return await _homeRepository.InsertAsync(home);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error in GetById method", ex);
+                return new Home();
+            }
         }
 
         // PUT api/<HomeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{Home}")]
+        public async Task<Home> Put([FromBody] Home home)
         {
+            try
+            {
+                _logger.Information($"Put: {home}");
+                return await _homeRepository.InsertAsync(home);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error in GetById method", ex);
+                return new Home();
+            }
         }
 
         // DELETE api/<HomeController>/5
