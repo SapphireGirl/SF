@@ -7,19 +7,8 @@ import { Log } from '../../logger';
 import configData from "../../logConfig.json";
 import { formatCurrency } from '../../helpers/Formatters';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from '../Interfaces/Home';
 import '../../App.css';
-
-interface Home {
-    id: number;
-    address: string;
-    city: string;
-    state: string;
-    zipcode: number;
-    comments: string;
-    url: string;
-    image: string;
-    price: string;
-}
 
 	const HomeComponent: React.FC<Home> = () => {
         const[homes, setHomes] = useState<Home[] > ([]);

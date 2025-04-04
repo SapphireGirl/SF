@@ -16,7 +16,7 @@ namespace SF.Data.Repositories
         Task<T> GetByIdAsync(int id);
         Task<T> InsertAsync(T obj);
         Task<int> UpdateAsync(T obj);
-        Task<bool> DeleteAsync(int id);
+        Task<int> DeleteAsync(int id);
     }
     
 }
