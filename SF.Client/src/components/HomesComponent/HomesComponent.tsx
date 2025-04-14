@@ -9,6 +9,9 @@ import { formatCurrency } from '../../helpers/Formatters';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from '../Interfaces/Home';
 import '../../App.css';
+import toast, { Toaster } from "react-hot-toast";
+
+const notify = () => toast('Here is your toast.');
 
 	const HomeComponent: React.FC<Home> = () => {
         const[homes, setHomes] = useState<Home[] > ([]);
@@ -58,6 +61,9 @@ import '../../App.css';
     function handleCardClick(homeId: number) {
         const log = new Log();
         setSelectedHomeId(homeId === selectedHomeId ? null : homeId);
+
+        toast.success("Card clicked!");
+
         const logData = "Clicking on card with ID: " + homeId;
         
         log.info(logData);
@@ -79,6 +85,7 @@ import '../../App.css';
                                     <img src={home.image} className="card-img-top img-fluid w-100" alt={home.address} onClick={() => handleCardClick(home.id)} />
                                     
                                 </div>
+                                <Toaster/>
                             </div>
                             {selectedHomeId === home.id && (
                                 <div className="col-12">
