@@ -8,24 +8,16 @@ using Serilog;
 
 namespace SF.API.Controllers
 {
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {
         private readonly Serilog.ILogger _logger;
-        //private readonly Serilog.ILogger _log = Log.ForContext<HomeRepository>();
-        private readonly IHomeRepository _homeRepository;
+        private readonly IRepository<Home> _homeRepository;
 
-        public HomeController(IHomeRepository homeRepository, Serilog.ILogger logger)
-        {
-            // _logger = logger;
+        public HomeController(IRepository<Home> homeRepository, Serilog.ILogger logger)
+        {            
             _homeRepository = homeRepository;
-            //_log = new LoggerConfiguration()
-            //    .MinimumLevel.Debug()
-            //    .WriteTo.Seq("http://localhost:5341")
-            //    .CreateLogger();
             _logger = logger.ForContext<HomeController>();
         }
 
@@ -50,7 +42,6 @@ namespace SF.API.Controllers
 
         }
 
-        // GET api/<HomeController>/5
         [HttpGet("{id}")]
         public async Task<Home> GetById(int id)
         {
@@ -67,24 +58,22 @@ namespace SF.API.Controllers
             }
         }
 
-        // POST api/<HomeController>
         [HttpPost]
         public async Task<Home> Insert([FromBody] Home home)
         {
             try
             {
-                _logger.Information($"GetById: {home}");
+                _logger.Information($"Insert: {home}");
                 return await _homeRepository.InsertAsync(home);
 
             }
             catch (Exception ex)
             {
-                _logger.Error("Error in GetById method", ex);
+                _logger.Error("Error in Insert method", ex);
                 return new Home();
             }
         }
 
-        // PUT api/<HomeController>/5
         [HttpPut("{Home}")]
         public async Task<Home> Put([FromBody] Home home)
         {
@@ -96,15 +85,25 @@ namespace SF.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.Error("Error in GetById method", ex);
+                _logger.Error("Error in Put method", ex);
                 return new Home();
             }
         }
 
-        // DELETE api/<HomeController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<int> Delete(Home home)
         {
+            try
+            {
+                _logger.Information($"Delete: {home}");
+                return await _homeRepository.DeleteAsync(home.ID);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Error in Delete method", ex);
+                return 0;
+            }
         }
     }
 }

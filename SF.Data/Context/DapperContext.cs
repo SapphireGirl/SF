@@ -1,57 +1,45 @@
 ﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq;
-
+using SF.Model;
+using Serilog;
 
 namespace SF.Data.Context
 {
-    public class DapperContext : ContextBase, IDisposable
+    public class DapperContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-        private string? _connectionString { get; set;}
-        private SqlConnection _connection { get; set; }
+        private string _connectionString;
+        private SqlConnection _connection = null!;
+        private readonly ILogger _logger = null!;
 
-        public override string ConnectionString { 
-            get
+        public DbSet<Home> Homes { get; set; }
+        public DapperContext(string connectionString)
+        {
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                return _connectionString;
-            }  
-            set => _connectionString = value;
-        }
-
-        public DapperContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public override DapperContext CreateConnection()
-        {
-            _connection = new SqlConnection(_connectionString);
-            return this;
-        }
-           
-        public override DapperContext SetConnectionString()
-        {
-            try
-            {
-                _connectionString = _configuration.GetConnectionString("SFConnectionString");
-                 return this;
+                throw new ArgumentException("Connection string cannot be null or empty.", nameof(connectionString));
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error setting connection string", ex);
-            }
-
+            _connectionString = connectionString;
+        }
+        public DapperContext(DbContextOptions options, ILogger logger) : base(options)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Logger cannot be null.");
+        }
+        public IDbConnection CreateConnection()
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open(); // Connection pooling is automatically handled by SqlConnection
+            return connection;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            if (_connection != null && _connection.State == ConnectionState.Open)
+            if (_connection != null)
             {
-                _connection.Close();
                 _connection.Dispose();
+                _connection = null; // Set _connection to null after disposing
             }
         }
     }
 }
+

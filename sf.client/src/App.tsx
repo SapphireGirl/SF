@@ -5,9 +5,18 @@ function App() {
     return (
         <div>
             <HomeComponent
-                id={0} address={''} city={''}
-                state={''} zipcode={0} comments={''}
-                url={''} price={''} image={''} />
+                {...{
+                    id: 0,
+                    address: '',
+                    city: '',
+                    state: '',
+                    zipcode: 0,
+                    comments: '',
+                    url: '',
+                    price: '',
+                    image: ''
+                }}
+            />
         </div>
     );
 }

@@ -22,14 +22,6 @@ public static class ServiceExtensions
     {
         collection.AddTransient<ISFLogger, SFLogger>();
         collection.AddSingleton<DapperContext>();
-        collection.AddScoped<IHomeRepository, HomeRepository>();
-        collection.AddScoped(typeof(IGenericRepository<Home>), typeof(HomeRepository));
-
-
-    }
-
-    public static void RegisterAuth(this IServiceCollection collection)
-    {
-        //Register authentication services.
+        collection.AddTransient<IRepository<Home>, HomeRepository>();
     }
 }
