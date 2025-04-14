@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.API", "SF.API\SF.API.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.Data", "SF.Data\SF.Data.csproj", "{1965868B-3873-4626-8DF3-D1F458D44508}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.AWSApi", "SF.AWSApi\SF.AWSApi.csproj", "{0C97357D-F327-4BCD-8236-9A8380F6C29B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SF.AWSApi", "SF.AWSApi\SF.AWSApi.csproj", "{0C97357D-F327-4BCD-8236-9A8380F6C29B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SF.ServerTests", "SF.ServerTests\SF.ServerTests.csproj", "{9A67EA95-DAE3-4C7B-B099-112C57BF9B58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{0C97357D-F327-4BCD-8236-9A8380F6C29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C97357D-F327-4BCD-8236-9A8380F6C29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C97357D-F327-4BCD-8236-9A8380F6C29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A67EA95-DAE3-4C7B-B099-112C57BF9B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A67EA95-DAE3-4C7B-B099-112C57BF9B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A67EA95-DAE3-4C7B-B099-112C57BF9B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A67EA95-DAE3-4C7B-B099-112C57BF9B58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

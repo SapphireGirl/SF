@@ -1,17 +1,14 @@
 using SF.Data.Repositories;
-using System.Collections.Generic;
-using System.Linq;
+using SF.Model;
 
 namespace SF.Data.Services
 {
     class DapperServices : IDapperServices
     {
-        private readonly IHomeRepository houseRepository;
-        public DapperServices(IHomeRepository houseRepository)
+        private readonly IHomeRepository<Home> houseRepository;
+        public DapperServices(IHomeRepository<Home> houseRepository)
         {
             this.houseRepository = houseRepository;
         }
-
-
     }
 }
